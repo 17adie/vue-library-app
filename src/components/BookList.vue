@@ -85,6 +85,7 @@ export default {
           console.log("error: ", error)
         })
     }
+    // todo: several npm packages are not working :(
     const exportDataToCSV = async () => {
       try {
         const querySnapshot = await getDocs(booksCollection)
@@ -95,7 +96,7 @@ export default {
           data.push(doc.data()) // Add the selected columns to the data array
         })
 
-        console.log(data)
+        console.log("Not working yet. :(", data)
       } catch (error) {
         console.error("Error exporting data:", error)
       }
