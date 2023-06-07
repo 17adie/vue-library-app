@@ -37,6 +37,7 @@
 <script>
 import { ref } from "vue"
 import { useStore } from "vuex"
+import { signUpValidations } from "./../validations"
 
 export default {
   setup() {
@@ -44,6 +45,12 @@ export default {
     const store = useStore()
 
     const signup = () => {
+      // validations
+      const validation = signUpValidations(signup_form.value.password)
+
+      // don't continue if false
+      if (!validation) return
+
       store.dispatch("signup", signup_form.value)
     }
 
