@@ -74,6 +74,13 @@
             >
               Update Book
             </button>
+            <button class="btn btn-danger btn-sm m-2">
+              <router-link
+                class="custom-link"
+                :to="'/'"
+                >Cancel</router-link
+              >
+            </button>
           </div>
         </form>
       </div>
@@ -180,5 +187,9 @@ export default {
 <style scoped>
 .custom-margin-top {
   margin-top: 5rem;
+}
+.custom-link {
+  color: white;
+  text-decoration: none; /* no underline */
 }
 </style>

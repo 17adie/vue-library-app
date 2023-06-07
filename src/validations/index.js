@@ -16,7 +16,9 @@ export const formValidations = (name, author, description) => {
     return false
   }
 
-  if (!authorAllowedSpecialChars.test(author)) {
+  if (author.length == 0) {
+    return true
+  } else if (!authorAllowedSpecialChars.test(author)) {
     alert(`Invalid author special character(s). Alphanumeric, (-), and (.) are allowed.`)
     return false
   }
