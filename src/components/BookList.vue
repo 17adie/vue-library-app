@@ -1,5 +1,13 @@
 <template>
-  <h5 class="p-2">Book List</h5>
+  <div class="d-flex justify-content-between">
+    <h5 class="p-2">Book List</h5>
+    <a
+      href="#"
+      @click="exportDataToCSV"
+    >
+      Export File to CSV
+    </a>
+  </div>
   <div
     class="p-5 text-center"
     v-if="books.length === 0"
@@ -14,11 +22,6 @@
     >
       <div class="card h-100">
         <CloudImage :path="book.icon" />
-        <!-- <img
-          src=""
-          class="card-img-top"
-          alt="..."
-        /> -->
         <div class="card-body">
           <h6 class="card-title">{{ book.name }}</h6>
           <small class="text-muted">{{ book.author || "No author" }}</small>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import { collection, deleteDoc, doc } from "firebase/firestore"
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore"
 import { db } from "@/firebase"
 import CloudImage from "./CloudImage.vue"
 import { storage } from "../firebase"
@@ -58,12 +61,14 @@ export default {
     CloudImage,
   },
   setup() {
+    const booksCollection = collection(db, "books") // todo: must be in one file to easy export
+
     // delete data collection
     const deleteBook = async (id, fileName) => {
       // Create a reference to the file to delete
       const desertRef = ref(storage, `icon/${fileName}`)
 
-      await deleteDoc(doc(collection(db, "books"), id))
+      await deleteDoc(doc(booksCollection, id))
 
       // Delete the file
       await deleteObject(desertRef)
@@ -74,8 +79,23 @@ export default {
           console.log("error: ", error)
         })
     }
+    const exportDataToCSV = async () => {
+      try {
+        const querySnapshot = await getDocs(booksCollection)
 
-    return { deleteBook }
+        const data = []
+
+        querySnapshot.forEach((doc) => {
+          data.push(doc.data()) // Add the selected columns to the data array
+        })
+
+        console.log(data)
+      } catch (error) {
+        console.error("Error exporting data:", error)
+      }
+    }
+
+    return { deleteBook, exportDataToCSV }
   },
 }
 </script>
