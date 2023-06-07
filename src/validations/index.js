@@ -1,6 +1,6 @@
 export const formValidations = (name, author, description) => {
   const alertMsg = "Character limit must be less than or equal to"
-  const descriptionAllowedSpecialChars = /^[a-zA-Z0-9.-]+$/
+  const authorAllowedSpecialChars = /^(?=.*[a-zA-Z0-9\s.-])[a-zA-Z0-9\s.-]+$/
   if (name.length > 50) {
     alert(`Invalid book name length. ${alertMsg} 50`)
     return false
@@ -16,8 +16,8 @@ export const formValidations = (name, author, description) => {
     return false
   }
 
-  if (!descriptionAllowedSpecialChars.test(description)) {
-    alert(`Invalid description special character(s). (-) and (.) are allowed.`)
+  if (!authorAllowedSpecialChars.test(author)) {
+    alert(`Invalid author special character(s). Alphanumeric, (-), and (.) are allowed.`)
     return false
   }
 
