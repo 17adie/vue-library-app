@@ -37,7 +37,13 @@
             >
               Delete
             </button>
-            <button class="btn btn-info btn-sm"><router-link :to="`/edit/${book.id}`">Edit</router-link></button>
+            <button class="btn btn-info btn-sm">
+              <router-link
+                class="custom-link"
+                :to="`/edit/${book.id}`"
+                >Edit</router-link
+              >
+            </button>
           </div>
         </div>
       </div>
@@ -100,4 +106,9 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.custom-link {
+  color: white;
+  text-decoration: none; /* no underline */
+}
+</style>
